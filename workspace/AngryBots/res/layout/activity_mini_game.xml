@@ -1,0 +1,59 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    tools:context=".MiniGame" >
+      
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_x="66dp"
+            android:layout_y="498dp"
+            android:background="@drawable/mgbuttons" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_x="80dp"
+            android:layout_y="217dp"
+            android:background="@drawable/mgbuttons" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_x="254dp"
+            android:layout_y="141dp"
+            android:background="@drawable/mgbuttons" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_x="367dp"
+            android:layout_y="313dp"
+            android:background="@drawable/mgbuttons" />
+       
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_x="350dp"
+            android:layout_y="618dp"
+            android:background="@drawable/mgbuttons" />
+        
+        <TextView
+          android:id="@+id/tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_x="18dp"
+          android:layout_y="15dp"
+          android:text="Points: 0"
+          android:textSize="50sp" />
+
+</AbsoluteLayout>

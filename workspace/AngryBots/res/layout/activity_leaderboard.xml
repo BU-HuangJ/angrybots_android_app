@@ -1,0 +1,127 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/humancompetitionbackground"
+    tools:context=".Leaderboard" >
+    
+     <Button
+        android:id="@+id/profile"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="299dp"
+        android:background="@drawable/profilebuttonpress"
+        android:gravity="center_horizontal"
+        android:onClick="angrybotsProfile" />
+
+    <Button
+        android:id="@+id/map"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="499dp"
+        android:background="@drawable/mapbuttonpress"
+        android:onClick="map" />
+
+    <Button
+        android:id="@+id/leaderboard"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="199dp"
+        android:background="@drawable/leaderboardbuttonpress"
+        android:onClick="leaderboard" />
+    
+    <Button
+        android:id="@+id/wiki"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="399dp"
+        android:background="@drawable/humanwikibuttonpress"
+        android:onClick="humanwiki" />
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="599dp"
+        android:background="@drawable/settingsbuttonpress"
+        android:onClick="settings" />
+
+    <ImageView
+        android:id="@+id/humanbar"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_x="200dp"
+        android:layout_y="320dp"
+        android:background="@drawable/humanprogressbar" />
+    
+     <ImageView
+        android:id="@+id/robotbar"
+        android:layout_width="100dp"
+        android:layout_height="300dp"
+        android:layout_x="375dp"
+        android:layout_y="320dp"
+        android:background="@drawable/robotprogressbar" />
+
+     <ImageView
+         android:id="@+id/humanlogo"
+         android:layout_width="131dp"
+         android:layout_height="131dp"
+         android:layout_x="185dp"
+         android:layout_y="247dp"
+         android:background="@drawable/humanlogo" />
+
+     <ImageView
+         android:id="@+id/robotlogo"
+         android:layout_width="131dp"
+         android:layout_height="131dp"
+         android:layout_x="358dp"
+         android:layout_y="250dp"
+         android:background="@drawable/robotlogo" />
+     
+     <TextView
+         android:id="@+id/humanpoints"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="200dp"
+         android:layout_y="620dp"/>
+     
+     <TextView
+         android:id="@+id/robotpoints"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_x="375dp"
+         android:layout_y="620dp"/>
+     
+      <Button
+        android:id="@+id/leaderboard"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_x="175dp"
+        android:layout_y="650dp"
+        android:background="@drawable/achievementsbuttonpress"
+        android:onClick="achievements" />
+      
+      <Button
+        android:id="@+id/mini"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_x="290dp"
+        android:layout_y="650dp"
+        android:background="@drawable/minigamebuttonpress"
+        android:onClick="minigame" />
+      
+       <Button
+        android:id="@+id/server"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_x="405dp"
+        android:layout_y="650dp"
+        android:background="@drawable/serverbuttonpress"
+        android:onClick="server" />
+
+</AbsoluteLayout>

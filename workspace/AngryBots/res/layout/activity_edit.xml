@@ -1,0 +1,62 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditActivity" 
+    android:background="@drawable/map_image_10">
+
+    <Button
+        android:id="@+id/mappoint1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="10dp"
+        android:layout_y="250dp"
+        android:onClick="mappoint1"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:id="@+id/mappoint2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_x="650dp"
+        android:layout_y="160dp"
+        android:onClick="mappoint2"
+        android:background="@android:color/transparent" />
+    
+    <Button
+        android:id="@+id/mappoint3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_x="500dp"
+        android:layout_y="160dp"
+        android:onClick="mappoint3"
+        android:background="@android:color/transparent" />
+    
+    <Button
+        android:id="@+id/mappoint4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_x="650dp"
+        android:layout_y="25dp"
+        android:onClick="mappoint4"
+        android:background="@android:color/transparent"  />
+    
+    <Button
+        android:id="@+id/mappoint5"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_x="250dp"
+        android:layout_y="225dp"
+        android:onClick="mappoint5"
+        android:background="@android:color/transparent" />
+    
+    <Button
+        android:id="@+id/mappoint6"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:layout_x="410dp"
+        android:layout_y="225dp"
+        android:onClick="mappoint6" 
+        android:background="@android:color/transparent" />
+
+</AbsoluteLayout>

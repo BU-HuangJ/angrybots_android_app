@@ -1,0 +1,132 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/human_backgroundmain"
+    tools:context=".HumanWiki" >
+    
+      <Button
+        android:id="@+id/profile"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="299dp"
+        android:background="@drawable/profilebuttonpress"
+        android:gravity="center_horizontal"
+        android:onClick="angrybotsProfile" />
+
+    <Button
+        android:id="@+id/map"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="499dp"
+        android:background="@drawable/mapbuttonpress"
+        android:onClick="map" />
+
+    <Button
+        android:id="@+id/leaderboard"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="199dp"
+        android:background="@drawable/leaderboardbuttonpress"
+        android:onClick="leaderboard" />
+    
+    <Button
+        android:id="@+id/wiki"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="399dp"
+        android:background="@drawable/humanwikibuttonpress"
+        android:onClick="humanwiki" />
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_x="48dp"
+        android:layout_y="599dp"
+        android:background="@drawable/settingsbuttonpress"
+        android:onClick="settings" />
+
+     <TextView
+         android:id="@+id/tv"
+         android:layout_width="267dp"
+         android:layout_height="wrap_content"
+         android:layout_x="201dp"
+         android:layout_y="205dp"
+         android:textSize="90sp" />
+
+       <TextView
+           android:id="@+id/title"
+           android:layout_width="267dp"
+           android:layout_height="wrap_content"
+           android:layout_x="198dp"
+           android:layout_y="34dp"
+           android:textSize="50sp" />
+       
+       <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_x="198dp"
+    android:layout_y="120dp"
+    android:fillViewport="true" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView 
+            android:id="@+id/title2" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingTop="6dip" 
+            android:text="Wiki Entries" />
+            
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#ff106510"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="12dip" />
+        
+        <TextView 
+            android:id="@+id/tv2" 
+            android:layout_width="400dp" 
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:paddingLeft="6dip"
+            android:paddingRight="6dip"
+            android:paddingBottom="6dip"
+            android:text="TEXT HEEEEEEEEEEEEEEEEEEERE"
+          />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@android:drawable/bottom_bar"
+            android:gravity="center_vertical">
+            <Button  
+                android:layout_width="0dip"
+                android:layout_weight="1.0" 
+                android:layout_height="wrap_content" 
+
+                android:text="Accept" />
+            <Button  
+                android:layout_width="0dip"
+                android:layout_weight="1.0" 
+                android:layout_height="wrap_content" 
+
+                android:text="Refuse" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+</AbsoluteLayout>
