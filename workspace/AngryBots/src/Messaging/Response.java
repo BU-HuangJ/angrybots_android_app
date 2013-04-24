@@ -2,6 +2,7 @@ package Messaging;
 
 import java.io.IOException;
 
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 public class Response extends Message {
 	public static final String type = "response";
@@ -10,13 +11,17 @@ public class Response extends Message {
 		setMessage(msg);
 	}
 	
+	public Response(JsonObject o) {
+		message = o.get("resource").getAsString();
+	}
+
 	public String getMessage() {
 		return message;
 	}
 
 	public void encode(JsonWriter w) throws IOException{
 		super.encode(w);
-		w.name("message").value(message);
+		w.name("resource").value(message);
 		w.endObject();
 		w.close();
 		

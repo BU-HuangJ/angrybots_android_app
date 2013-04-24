@@ -5,10 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class HumanWiki extends Activity {

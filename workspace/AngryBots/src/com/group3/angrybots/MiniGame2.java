@@ -78,7 +78,7 @@ public class MiniGame2 extends Activity {
 				clicksLeft--;
 				int clicked = v.getId(); //the number of the card that is clicked
 				if (clicked == mouseCard) {
-					v.setBackground(getBaseContext().getResources().getDrawable(R.drawable.mouse));	
+					v.setBackground(getBaseContext().getResources().getDrawable(R.drawable.robot_gametwo));	
 					gameOver = true;
 					gameWon = true;
 					currentStreak++;
@@ -133,17 +133,6 @@ public class MiniGame2 extends Activity {
     	currStreak.setText(Integer.toString(currentStreak), BufferType.NORMAL); //update the current winning streak
     }
     
-    private void delayRefresh() { //waits short amount of time before starting next game
-    	/*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() { 
-             public void run() { 
-            	 MiniGame2.this.doReset();
-             } 
-        }, DELAY_TIME);*/
-        
-        MiniGame2.this.doReset();
-    }
-    
     @SuppressLint("NewApi")
 	private void startGame() { //Called when the game is started
     	if(gameLost){
@@ -157,7 +146,7 @@ public class MiniGame2 extends Activity {
     	updateStatistics(); //update the guesses left counter
     	mouseCard = new Random().nextInt(5); //generate a new mouse card
     	for (Button b : card) { //make all the buttons visible and change all backgrounds to the card image
-    		b.setBackground(getBaseContext().getResources().getDrawable(R.drawable.card));	
+    		b.setBackground(getBaseContext().getResources().getDrawable(R.drawable.human_gametwo));	
     		b.setVisibility(View.VISIBLE);
     	}
     }
@@ -195,14 +184,25 @@ public class MiniGame2 extends Activity {
         return true;
     }
         
-    public void showMessage() {
+    @SuppressLint("NewApi")
+	public void showMessage() {
     	if (gameWon) { //show game won message
+    		card.elementAt(mouseCard).setBackground(getBaseContext().getResources().getDrawable(R.drawable.robot_gametwo));	
     		new AlertDialog.Builder(this).setTitle(getString(R.string.win_title)).setMessage(getString(R.string.win_message)).setPositiveButton(getString(R.string.ok), null).show();
     		startGame();
     	} else {
-    		CharSequence lose_message = "You're out of guesses. The mouse was under card " + (mouseCard+1) + '.';
+    		CharSequence lose_message = "You're out of guesses. The imposter was " + (mouseCard+1) + '.';
     		new AlertDialog.Builder(this).setTitle(getString(R.string.lose_title)).setMessage(lose_message).setPositiveButton(getString(R.string.ok), null).show();
     		startGame();
     	}
     }
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		long mPoints = adapters.MemberAdapter.getMember().getPoints();
+		mPoints += this.currentScore;
+		adapters.MemberAdapter.getMember().setPoints(mPoints);
+		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+	}
 }

@@ -1,7 +1,5 @@
 package com.group3.angrybots;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -86,6 +84,14 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
+
+		mEmailView.setText(adapters.PersistentSettings.prefs.email);
+		mPasswordView.setText(adapters.PersistentSettings.prefs.password);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 	}
 
 	@Override
@@ -146,9 +152,13 @@ public class LoginActivity extends Activity {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-			//showProgress(true);
+			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
+			
+			adapters.PersistentSettings.prefs.email = this.mEmail;
+			adapters.PersistentSettings.prefs.password = this.mPassword;
+			adapters.PersistentSettings.prefs.savePreferences(this.getApplicationContext());
 		}
 	}
 
@@ -197,32 +207,20 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-		private Messaging.Client client = null;
-		
+	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {		
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 			
-			try { return true; } catch (Exception e) {}
+			//try { return true; } catch (Exception e) {}
 			
 			try {
-				this.client = new Messaging.Client("129.62.151.104");
-				return this.client.login(mEmail, mPassword);
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				mPasswordView.setError(e.getMessage());
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				mPasswordView.setError(e.getMessage());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				mPasswordView.setError(e.getMessage());
+				adapters.NetworkAdapter.connect("65.111.126.38");
+				base.Member member = adapters.NetworkAdapter.login(mEmail, mPassword);
+				adapters.MemberAdapter.setMember(member);
+				return (member != null);
 			} catch (Exception e) {
-				mPasswordView.setError(e.getMessage());
+				e.printStackTrace();
 			}
 			
 			try {
@@ -252,13 +250,32 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				// GET race; currently defaulting to human
-				MainActivity.faction = MainActivity.Faction.HUMAN;
+				String faction = adapters.MemberAdapter.getMember().getaFaction().getName();
+				if (faction.equalsIgnoreCase("humans")) {
+					MainActivity.faction = MainActivity.Faction.HUMAN;
+				} else if (faction.equalsIgnoreCase("robots")) {
+					MainActivity.faction = MainActivity.Faction.ROBOT;
+				}
+				adapters.PersistentSettings.prefs.faction = faction;
+				adapters.PersistentSettings.prefs.offlineMode = false;
+				adapters.PersistentSettings.prefs.savePreferences(getApplicationContext());
 				finish();
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				String faction = adapters.PersistentSettings.prefs.faction;
+				if (!faction.equals("")) {
+					if (faction.equalsIgnoreCase("humans")) {
+						MainActivity.faction = MainActivity.Faction.HUMAN;
+					} else if (faction.equalsIgnoreCase("robots")) {
+						MainActivity.faction = MainActivity.Faction.ROBOT;
+					}
+					adapters.PersistentSettings.prefs.offlineMode = true;
+					adapters.PersistentSettings.prefs.savePreferences(getApplicationContext());
+					finish();
+				} else {
+					mPasswordView
+							.setError(getString(R.string.error_incorrect_password));
+					mPasswordView.requestFocus();
+				}
 			}
 		}
 

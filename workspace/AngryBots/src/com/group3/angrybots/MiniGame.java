@@ -286,4 +286,12 @@ public class MiniGame extends Activity {
         }
     }
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		long mPoints = adapters.MemberAdapter.getMember().getPoints();
+		mPoints += this.points;
+		adapters.MemberAdapter.getMember().setPoints(mPoints);
+		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+	}
 }

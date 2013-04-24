@@ -121,6 +121,74 @@
             android:label="@string/title_activity_human_wiki"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.group3.angrybots.MiniGame3"
+            android:label="@string/title_activity_mini_game3"
+            android:parentActivityName="com.group3.angrybots.MinigamePortal" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.MinigamePortal" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotHomePage"
+            android:label="@string/title_activity_robot_home_page" >
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotCompetition"
+            android:label="@string/title_activity_robot_competition"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotLeaderboard"
+            android:label="@string/title_activity_robot_leaderboard"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotMap"
+            android:label="@string/title_activity_robot_map"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotMinigames"
+            android:label="@string/title_activity_robot_minigames"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotProfile"
+            android:label="@string/title_activity_robot_profile"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotSettings"
+            android:label="@string/title_activity_robot_settings"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
+        <activity
+            android:name="com.group3.angrybots.RobotWiki"
+            android:label="@string/title_activity_robot_wiki"
+            android:parentActivityName="com.group3.angrybots.RobotHomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group3.angrybots.RobotHomePage" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="113dp"
+    android:layout_height="446dp"
+    android:layout_x="21dp"
+    android:layout_y="243dp"
+    android:orientation="vertical" >
+    
+
+	<ImageButton
+	    android:id="@+id/imageButton1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".2"
+	    android:onClick="toRobotCompetitionPage"
+	    android:background="@drawable/robot_competition_menubar" />
+	
+	<ImageButton
+	    android:id="@+id/imageButton2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".2"
+	    android:onClick="toRobotProfilePage"
+	    android:background="@drawable/robot_profile_menubar" />
+	
+	<ImageButton
+	    android:id="@+id/imageButton3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".2"
+	    android:onClick="toRobotWikiPage"
+	    android:background="@drawable/robot_wiki_menubar" />
+	
+	<ImageButton
+	    android:id="@+id/imageButton4"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".2"
+	    android:onClick="toRobotMapPage"
+	    android:background="@drawable/robot_map_menubar" />
+	
+	<ImageButton
+	    android:id="@+id/imageButton5"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight=".2"
+	    android:onClick="toRobotSettingsPage"
+	    android:background="@drawable/robot_setting_menubar" />
+
+</LinearLayout>

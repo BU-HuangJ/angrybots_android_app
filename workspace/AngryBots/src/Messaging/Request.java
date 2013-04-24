@@ -19,8 +19,10 @@ public class Request extends Message {
 	}
 	
 	public void encode(JsonWriter writer) throws IOException{
-		writer.name("resource");
-		writer.value(resource);
+		super.encode(writer);
+		writer.name("resource").value(resource);
+		writer.endObject();
+		writer.close();
 	}
 	@Override
 	public String getType() {
