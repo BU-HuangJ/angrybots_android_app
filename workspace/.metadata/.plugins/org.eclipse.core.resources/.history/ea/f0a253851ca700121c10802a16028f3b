@@ -1,0 +1,220 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/robot_static_wiki"
+    tools:context=".RobotWiki" >
+    
+	<include android:id="@+id/side_bar" layout="@layout/robot_sidebar" />
+
+	<LinearLayout
+	    android:layout_width="437dp"
+	    android:layout_height="747dp"
+	    android:layout_x="153dp"
+	    android:layout_y="82dp"
+	    android:orientation="vertical"
+	    android:weightSum="7" >
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:layout_margin="10dp"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:layout_margin="10dp"
+	            android:background="@drawable/a_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:layout_margin="10dp"
+	            android:background="@drawable/b_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:layout_margin="10dp"
+	            android:background="@drawable/c_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:layout_margin="10dp"
+	            android:background="@drawable/d_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/e_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/f_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/g_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/h_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/i_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/j_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/k_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/l_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/m_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/n_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/o_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/p_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/q_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/r_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/s_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/t_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/u_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/v_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/w_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/x_button" />
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:gravity="center"
+	        android:orientation="horizontal" >
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+       		 	android:background="@android:color/transparent" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/y_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+	            android:background="@drawable/z_button" />
+	        <ImageButton
+	            android:layout_width="0dp"
+	            android:layout_height="fill_parent"
+	            android:layout_weight=".25"
+       		 	android:background="@android:color/transparent" />
+	    </LinearLayout>
+	</LinearLayout>
+
+</AbsoluteLayout>

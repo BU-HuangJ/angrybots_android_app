@@ -1,0 +1,139 @@
+package Messaging;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+<<<<<<< HEAD
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
+=======
+import java.sql.SQLException;
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+
+
+import base.Member;
+
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
+public class Client extends Protocol{
+	private Member me;
+	private Socket sock;
+<<<<<<< HEAD
+	
+	public Client(String host, Member m) throws UnknownHostException, IOException{
+		sock = new Socket(host,9999);
+		me = m;
+	}
+=======
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+	public Client(String host) throws ClassNotFoundException, SQLException, IOException{
+		sock = new Socket(host,9999);
+	}
+	
+<<<<<<< HEAD
+	public Member login(String user,String pass) throws IOException{
+		LoginMessage msg = new LoginMessage(user,pass);
+		write(sock,msg);
+		JsonObject obj = read(sock);
+		String type = obj.get("id").getAsString();
+		if(type.compareTo(Update.TYPE) == 0){
+			JsonObject member_obj = obj.get("member").getAsJsonObject();
+			Member m = new Member(member_obj);
+			return m;
+		}
+		return null;
+	}
+	public void start_rpc() throws IOException{
+		RPC_Request req = new RPC_Request(me.getId());
+		this.write(sock, req);
+		JsonObject o = this.read(sock);
+		System.out.println(o.toString());
+	}
+	public ArrayList<Member> getLeaderBoard() throws IOException{
+		Request req = new Request("leaderboard");
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		JsonWriter writer = new JsonWriter(new OutputStreamWriter(output));
+		req.encode(writer);
+		this.write(sock, output.toString());
+		JsonObject obj = this.read(sock);
+		LeaderBoardMessage msg = new LeaderBoardMessage(obj);
+		return msg.getMembers();
+	}
+	public Member getMember() {
+		return me;
+	}
+	public void setMember(Member me) throws IOException {
+		this.me = me;
+		save();
+	}
+	public int getHumanTotalPoints() throws IOException{
+		Request req = new Request("human_points");
+		this.write(sock, req);
+		JsonObject o = this.read(sock);
+		Response resp = new Response(o);
+		return Integer.valueOf(resp.getMessage());
+	}
+	public int getRobotTotalPoints() throws IOException{
+		Request req = new Request("robot_points");
+		this.write(sock,req);
+		JsonObject o = this.read(sock);
+		Response resp = new Response(o);
+		return Integer.valueOf(resp.getMessage());
+	}
+=======
+	public boolean login(String user,String pass) throws IOException{
+		LoginMessage msg = new LoginMessage(user,pass);
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		JsonWriter writer = new JsonWriter(new OutputStreamWriter(output));
+		msg.encode(writer);
+		write(sock,output.toString());
+		JsonObject obj = read(sock);
+		System.out.println(obj.toString());
+		String type = obj.get("id").getAsString();
+		if(type.compareTo("response") == 0){
+			String msg2 = obj.get("message").getAsString();
+			return msg2.compareTo("success") == 0;
+		}
+		return false;
+		
+	}
+
+
+	
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+	public void close() throws IOException{
+		sock.close();
+	}
+	
+<<<<<<< HEAD
+	public void save() throws IOException{
+		Update msg = new Update(me);
+		write(sock,msg);
+	}
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		try {
+			Client c = new Client("localhost");
+			Member m = c.login("test01@test.com", "12345678");
+			System.out.println(c.getRobotTotalPoints());
+			System.out.println(c.getHumanTotalPoints());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); 
+=======
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		try {
+			Client c = new Client("localhost");
+			System.out.println(c.login("testme2@test.com", "12345678"));
+			c.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+		}
+	}
+
+}

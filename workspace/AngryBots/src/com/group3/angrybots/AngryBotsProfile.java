@@ -6,15 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 public class AngryBotsProfile extends Activity {
@@ -87,8 +80,6 @@ public class AngryBotsProfile extends Activity {
         text.setTextColor(Color.DKGRAY);
         text.setText("Achievement 1"+"\n"+"Achievement 2"+"\n"+"Achievement 3\nAchievement 4\nAchievement5\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
-        
-	    
 	    
 	}
 

@@ -15,6 +15,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_human_home_page);
+		adapters.PersistentSettings.populate(this.getApplicationContext());
     }
 
     @Override
@@ -28,14 +29,16 @@ public class MainActivity extends Activity {
     public void onResume() {
     	super.onResume();
         Intent intent = new Intent(this, LoginActivity.class);
+		//Intent intent = new Intent(this, MainMenuActivity.class);
+		//Intent intent = new Intent(this, HumanHomePage.class);
+        //Intent intent = new Intent(this, RobotHomePage.class);
     	if (MainActivity.faction != null) {
     		switch (MainActivity.faction) {
 			case HUMAN:
 				intent = new Intent(this, HumanHomePage.class);
-				//intent = new Intent(this, MainMenuActivity.class);
 				break;
 			case ROBOT:
-				
+				intent = new Intent(this, RobotHomePage.class);
 				break;
 
 			default:

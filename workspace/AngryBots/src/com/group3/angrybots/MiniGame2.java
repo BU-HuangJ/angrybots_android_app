@@ -205,4 +205,13 @@ public class MiniGame2 extends Activity {
     		startGame();
     	}
     }
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		long mPoints = adapters.MemberAdapter.getMember().getPoints();
+		mPoints += this.currentScore;
+		adapters.MemberAdapter.getMember().setPoints(mPoints);
+		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+	}
 }

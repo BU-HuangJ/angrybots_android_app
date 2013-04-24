@@ -1,0 +1,33 @@
+package base;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+public class RPC_Handler {
+	private BlockingQueue<RPCEntry> robotRPCQueue;
+	private BlockingQueue<RPCEntry> humanRPCQueue;
+	public RPC_Handler() {
+		robotRPCQueue = new LinkedBlockingQueue<RPCEntry>();
+		humanRPCQueue = new LinkedBlockingQueue<RPCEntry>();
+	}
+	public void queue(RPCEntry m){
+		String fac_name = m.getMember().getaFaction().getName();
+		if(fac_name.compareTo("Robots") == 0){
+			this.robotRPCQueue.add(m);
+		}else{
+			this.humanRPCQueue.add(m);
+		}
+	}
+	public RPC_Match getMatchup() {
+		RPCEntry robot = robotRPCQueue.peek();
+		RPCEntry human = humanRPCQueue.peek();
+		
+		if(robot != null && human != null){
+			robotRPCQueue.remove();
+			humanRPCQueue.remove();
+			return new RPC_Match(robot,human);
+		}
+		return null;
+	}
+
+}

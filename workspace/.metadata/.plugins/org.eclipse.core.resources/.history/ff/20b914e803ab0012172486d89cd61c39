@@ -1,0 +1,12 @@
+package adapters;
+
+import android.os.AsyncTask;
+
+public class AsyncTaskThread<P, V, R> {
+	private class Thread extends AsyncTask<P, V, R> {
+		@Override
+		protected R doInBackground(P... params) {
+			return null;
+		}
+	}
+}

@@ -30,8 +30,6 @@ public class Leaderboard extends Activity {
 	    myTextView.setTypeface(typeFace);
 	    myTextView.setText("ROBOTPOINTS");
 		myTextView.setTextColor(Color.DKGRAY);
-		
-	    
 	}
 
 	@Override

@@ -1,0 +1,58 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/robot_static_setting_base"
+    tools:context=".RobotSettings" >
+    
+	<include android:id="@+id/side_bar" layout="@layout/robot_sidebar" />
+
+	<ImageView
+	    android:id="@+id/robot_server_on"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_x="402dp"
+	    android:layout_y="107dp"
+	    android:src="@drawable/robot_server_status_on" />
+
+	<ImageView
+	    android:id="@+id/robot_server_off"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_x="402dp"
+	    android:layout_y="107dp"
+	    android:src="@drawable/robot_server_status_off" />
+
+	<Button
+	    android:id="@+id/robot_flip_top_hat"
+	    android:layout_width="78dp"
+	    android:layout_height="78dp"
+	    android:layout_x="488dp"
+	    android:layout_y="244dp"
+        android:onClick="flipTopHat" />
+
+	<Button
+	    android:id="@+id/robot_flip_monocle"
+	    android:layout_width="78dp"
+	    android:layout_height="78dp"
+	    android:layout_x="488dp"
+	    android:layout_y="348dp"
+        android:onClick="flipMonocle" />
+
+	<Button
+	    android:id="@+id/robot_flip_cowboy_hat"
+	    android:layout_width="78dp"
+	    android:layout_height="78dp"
+	    android:layout_x="488dp"
+	    android:layout_y="456dp"
+        android:onClick="flipCowboyHat" />
+
+	<Button
+	    android:id="@+id/robot_flip_mustache"
+	    android:layout_width="78dp"
+	    android:layout_height="78dp"
+	    android:layout_x="488dp"
+	    android:layout_y="566dp"
+        android:onClick="flipMustache" />
+
+</AbsoluteLayout>

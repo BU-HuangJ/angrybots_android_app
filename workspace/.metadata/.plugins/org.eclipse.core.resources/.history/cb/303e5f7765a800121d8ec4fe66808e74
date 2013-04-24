@@ -1,0 +1,28 @@
+package com.group3.angrybots;
+ 
+import android.app.Activity;
+<<<<<<< HEAD
+import android.os.Bundle;
+=======
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.widget.TextView;
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+ 
+public class Server extends Activity {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tab_sample);
+<<<<<<< HEAD
+=======
+        
+        TextView myTextView=(TextView)findViewById(R.id.title);
+		Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/neuropolitical rg.ttf");
+		myTextView.setTypeface(typeFace);
+		
+		myTextView.setText("Server");
+		myTextView.setTextColor(Color.DKGRAY);
+>>>>>>> c7e7b9d9440b07ab7c5916a77e1f674f4f260ee7
+    }
+}

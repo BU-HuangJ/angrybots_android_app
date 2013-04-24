@@ -40,5 +40,4 @@ public class MinigamePortal extends Activity {
 		Intent intent = new Intent(this, MiniGame2.class);
 		startActivity(intent);
 	}
-
 }

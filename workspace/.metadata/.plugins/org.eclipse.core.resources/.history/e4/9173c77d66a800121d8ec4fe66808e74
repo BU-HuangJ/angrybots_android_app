@@ -1,0 +1,61 @@
+package base;
+
+public class RPC_Match {
+	private RPCEntry robot;
+	private RPCEntry human;
+	private String hash_key;
+	public RPC_Match(RPCEntry robot, RPCEntry human) {
+		super();
+		this.robot = robot;
+		this.human = human;
+		hash_key = robot.getMember().getId()+"-"+human.getMember().getId();
+	}
+
+	public String getHash_key() {
+		return hash_key;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((hash_key == null) ? 0 : hash_key.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RPC_Match other = (RPC_Match) obj;
+		if (hash_key == null) {
+			if (other.hash_key != null)
+				return false;
+		} else if (!hash_key.equals(other.hash_key))
+			return false;
+		return true;
+	}
+
+	public RPCEntry getRobot() {
+		return robot;
+	}
+
+	public void setRobot(RPCEntry robot) {
+		this.robot = robot;
+	}
+
+	public RPCEntry getHuman() {
+		return human;
+	}
+
+	public void setHuman(RPCEntry human) {
+		this.human = human;
+	}
+	
+	
+}

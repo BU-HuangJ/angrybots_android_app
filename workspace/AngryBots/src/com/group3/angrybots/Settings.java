@@ -14,7 +14,6 @@ public class Settings extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-        
         TextView myTextView=(TextView)findViewById(R.id.title);
 		Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/neuropolitical rg.ttf");
 		myTextView.setTypeface(typeFace);
@@ -67,7 +66,5 @@ public class Settings extends Activity {
     public void minigame(View view){
     	Intent intent = new Intent(this, MinigamePortal.class);
     	startActivity(intent);
-    } 
-    
-    
+    }
 }

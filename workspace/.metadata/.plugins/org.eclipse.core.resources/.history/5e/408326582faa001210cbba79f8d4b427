@@ -1,0 +1,47 @@
+package adapters;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+
+public class PersistentSettings {
+	public static class PreferenceActivity extends Activity {
+		public static final String PREFS_NAME = "User_Preferences";
+		public String email, password;
+		public boolean robotCowboyHat, robotMonocle, robotMustache, robotTopHat;
+		
+		public void readPreferences() {
+			//SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			SharedPreferences settings = this.getPreferences(0);
+			this.email = settings.getString("email", "");
+			this.password = settings.getString("password", "");
+			this.robotCowboyHat = settings.getBoolean("robotCowboyHat", false);
+			this.robotMonocle = settings.getBoolean("robotMonocle", false);
+			this.robotMustache = settings.getBoolean("robotMustache", false);
+			this.robotTopHat = settings.getBoolean("robotTopHat", false);
+		}
+		
+		public void savePreferences() {
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("email", this.email);
+			editor.putString("password", this.password);
+			editor.putBoolean("robotCowboyHat", this.robotCowboyHat);
+			editor.putBoolean("robotMonocle", this.robotMonocle);
+			editor.putBoolean("robotMustache", this.robotMustache);
+			editor.putBoolean("robotTopHat", this.robotTopHat);
+			editor.commit();
+		}
+	}
+	
+	private static PreferenceActivity prefs = null;
+	
+	private PersistentSettings() {}
+	
+	public static PreferenceActivity getPreferenceActivity() {
+		if (PersistentSettings.prefs == null) {
+			PersistentSettings.prefs = new PreferenceActivity();
+			PersistentSettings.prefs.readPreferences();
+		}
+		return PersistentSettings.prefs;
+	}
+}

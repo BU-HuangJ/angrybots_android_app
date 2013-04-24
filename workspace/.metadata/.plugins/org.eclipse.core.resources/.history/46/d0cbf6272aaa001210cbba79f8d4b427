@@ -1,0 +1,71 @@
+package adapters;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+
+public class PersistentSettings {
+	private static class PreferenceActivity extends Activity {
+		public static final String PREFS_NAME = "User_Preferences";
+		protected String email, password;
+		protected boolean robotCowboyHat, robotMonocle, robotMustache, robotTopHat;
+		
+		protected void readPreferences() {
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			this.email = settings.getString("email", "");
+			this.password = settings.getString("password", "");
+			this.robotCowboyHat = settings.getBoolean("robotCowboyHat", false);
+			this.robotMonocle = settings.getBoolean("robotMonocle", false);
+			this.robotMustache = settings.getBoolean("robotMustache", false);
+			this.robotTopHat = settings.getBoolean("robotTopHat", false);
+		}
+		
+		protected void savePreferences() {
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("email", this.email);
+			editor.putString("password", this.password);
+			editor.putBoolean("robotCowboyHat", this.robotCowboyHat);
+			editor.putBoolean("robotMonocle", this.robotMonocle);
+			editor.putBoolean("robotMustache", this.robotMustache);
+			editor.putBoolean("robotTopHat", this.robotTopHat);
+			editor.commit();
+		}
+	}
+	
+	private static PreferenceActivity prefs = null;
+	
+	private PersistentSettings() {}
+	
+	private static PreferenceActivity getPreferenceActivity() {
+		if (PersistentSettings.prefs == null) {
+			PersistentSettings.prefs = new PreferenceActivity();
+			PersistentSettings.prefs.readPreferences();
+		}
+		return PersistentSettings.prefs;
+	}
+	
+	public static void readPreferences() {
+		PersistentSettings.getPreferenceActivity().readPreferences();
+	}
+	
+	public static void savePreferences() {
+		PersistentSettings.getPreferenceActivity().savePreferences();
+	}
+
+	public static String getEmail() {
+		return PersistentSettings.getPreferenceActivity().email;
+	}
+
+	public static void setEmail(String email) {
+		PersistentSettings.getPreferenceActivity().email = email;
+	}
+
+	public static String getPassword() {
+		return PersistentSettings.getPreferenceActivity().password;
+	}
+
+	public static void setPassword(String password) {
+		PersistentSettings.getPreferenceActivity().password = password;
+	}
+	
+}
