@@ -132,6 +132,29 @@ public class AngryBotsProfile extends Activity {
     public void minigame(View view){
     	Intent intent = new Intent(this, MinigamePortal.class);
     	startActivity(intent);
-    } 
+    }
+    
+    @Override
+	protected void onResume() {
+		super.onResume();
+		if (!adapters.PersistentSettings.prefs.offlineMode) {
+			this.setStats();
+			this.setProfile();
+		}
+	}
+	
+	protected void setStats() {
+		( (TextView)findViewById(R.id.title2) ).setText(adapters.MemberAdapter.getMember().getUsername());
+		//( (TextView)findViewById(R.id.prank) ).setText(adapters.MemberAdapter.getMember().getRank());
+		( (TextView)findViewById(R.id.robotkills) ).setText( Integer.toString(adapters.MemberAdapter.getMember().getHit()) );
+		//( (TextView)findViewById(R.id.DeathCount) ).setText(adapters.MemberAdapter.getMember().getDeaths());
+		( (TextView)findViewById(R.id.minigamepoints) ).setText( Long.toString(adapters.MemberAdapter.getMember().getPoints()) );
+		//( (TextView)findViewById(R.id.PlayTime) ).setText(adapters.MemberAdapter.getMember().getPlayTime());
+	}
+	
+	protected void setProfile() {
+		
+		
+	}
 }
 

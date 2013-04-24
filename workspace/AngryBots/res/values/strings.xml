@@ -30,9 +30,9 @@
     <string name="title_activity_mappoint6">Mappoint6</string>
     <string name="title_activity_minigame_portal">MinigamePortal</string>
     <string name="title_activity_mini_game2">MiniGame2</string>
-    <string name="app_title">Find The Mouse by Dylan Taylor</string>
+    <string name="app_title">Find The Imposter by Dylan Taylor</string>
     <string name="win_title">Congratulations!</string>
-    <string name="win_message">You found the mouse!</string>
+    <string name="win_message">You found the imposter!</string>
     <string name="ok">OK</string>
     <string name="lose_title">You Lose!</string>
     <string name="title_activity_human_wiki">HumanWiki</string>
