@@ -67,25 +67,33 @@ public class RobotSettings extends RobotActivity {
 	}
 	
 	public void flipTopHat(View view) {
-		adapters.PersistentSettings.prefs.robotTopHat ^= true;
+		if (adapters.PersistentSettings.prefs.achievementTopHat) {
+			adapters.PersistentSettings.prefs.robotTopHat ^= true;
+		}
 		this.flip(view, adapters.PersistentSettings.prefs.robotTopHat);
 		adapters.PersistentSettings.prefs.savePreferences();
 	}
 	
 	public void flipMonocle(View view) {
-		adapters.PersistentSettings.prefs.robotMonocle ^= true;
+		if (adapters.PersistentSettings.prefs.achievementMonocle) {
+			adapters.PersistentSettings.prefs.robotMonocle ^= true;
+		}
 		this.flip(view, adapters.PersistentSettings.prefs.robotMonocle);
 		adapters.PersistentSettings.prefs.savePreferences();
 	}
 	
 	public void flipCowboyHat(View view) {
-		adapters.PersistentSettings.prefs.robotCowboyHat ^= true;
+		if (adapters.PersistentSettings.prefs.achievementCowboyHat) {
+			adapters.PersistentSettings.prefs.robotCowboyHat ^= true;
+		}
 		this.flip(view, adapters.PersistentSettings.prefs.robotCowboyHat);
 		adapters.PersistentSettings.prefs.savePreferences();
 	}
 	
 	public void flipMustache(View view) {
-		adapters.PersistentSettings.prefs.robotMustache ^= true;
+		if (adapters.PersistentSettings.prefs.achievementMustache) {
+			adapters.PersistentSettings.prefs.robotMustache ^= true;
+		}
 		this.flip(view, adapters.PersistentSettings.prefs.robotMustache);
 		adapters.PersistentSettings.prefs.savePreferences();
 	}

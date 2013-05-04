@@ -1,5 +1,7 @@
 package com.group3.angrybots;
 
+import java.io.IOException;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -20,13 +22,6 @@ import android.widget.TextView;
  * well.
  */
 public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
-
 	/**
 	 * The default email to populate the email field with.
 	 */
@@ -154,11 +149,8 @@ public class LoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
-			
-			adapters.PersistentSettings.prefs.email = this.mEmail;
-			adapters.PersistentSettings.prefs.password = this.mPassword;
-			adapters.PersistentSettings.prefs.savePreferences();
+			String[] params = {this.mEmail, this.mPassword};
+			mAuthTask.execute( params );
 		}
 	}
 
@@ -207,50 +199,80 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {		
+	public class UserLoginTask extends AsyncTask<String, Void, Boolean> {		
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+		protected Boolean doInBackground(String... params) {			
+			String mEmail = params[0];
+			String mPassword = params[1];
 			
-			//try { return true; } catch (Exception e) {}
-			
+			boolean connected;
 			try {
-				adapters.NetworkAdapter.connect("65.111.126.38");
+				//adapters.NetworkAdapter.connect("65.111.126.38");
+				adapters.NetworkAdapter.connect("129.62.89.231");
+				connected = true;
+			} catch (IOException e) {
+				connected = false;
+			}
+			
+			if (connected) {
 				base.Member member = adapters.NetworkAdapter.login(mEmail, mPassword);
-				adapters.MemberAdapter.setMember(member);
-				
-				adapters.PersistentSettings.prefs.username = member.getUsername();
-				//adapters.PersistentSettings.prefs.rank = member.getRank();
-				adapters.PersistentSettings.prefs.hits = member.getHit();
-				//adapters.PersistentSettings.prefs.deaths = member.getDeaths();
-				adapters.PersistentSettings.prefs.points = member.getPoints();
-				//adapters.PersistentSettings.prefs.play_time;
-				adapters.PersistentSettings.prefs.savePreferences();
-				
-				return (member != null);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
+				// if logged in
+				if (member != null) {
+					adapters.PersistentSettings.prefs.email = mEmail;
+					adapters.PersistentSettings.prefs.password = mPassword;
+					
+					adapters.PersistentSettings.prefs.username = member.getUsername();
+					adapters.PersistentSettings.prefs.rank = member.getRank();
+					adapters.PersistentSettings.prefs.hits = member.getHit();
+					adapters.PersistentSettings.prefs.deaths = member.getDeaths();
+					adapters.PersistentSettings.prefs.points = member.getPoints();
+					adapters.PersistentSettings.prefs.play_time = member.getTime_played();
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
+					adapters.PersistentSettings.prefs.achievementTopHat    = member.getAchievementMap().containsKey(base.Achievement.TOP_HAT.getId());
+					adapters.PersistentSettings.prefs.achievementCowboyHat = member.getAchievementMap().containsKey(base.Achievement.COWBOY_HAT.getId());
+					adapters.PersistentSettings.prefs.achievementMonocle   = member.getAchievementMap().containsKey(base.Achievement.MONOCLE.getId());
+					adapters.PersistentSettings.prefs.achievementMustache  = member.getAchievementMap().containsKey(base.Achievement.MUSTACHE.getId());
+					
+					String faction = member.getaFaction().getName();
+					if (faction.equalsIgnoreCase("humans")) {
+						MainActivity.faction = MainActivity.Faction.HUMAN;
+					} else if (faction.equalsIgnoreCase("robots")) {
+						MainActivity.faction = MainActivity.Faction.ROBOT;
+					}
+					adapters.PersistentSettings.prefs.faction = faction;
+					adapters.PersistentSettings.prefs.offlineMode = false;
+					adapters.PersistentSettings.prefs.lastLoginAttemptWasSuccessful = true;
+					
+					adapters.PersistentSettings.prefs.savePreferences();
+					return true;
+				} else {
+					adapters.PersistentSettings.prefs.lastLoginAttemptWasSuccessful = false;
+					adapters.PersistentSettings.prefs.savePreferences();
+					return false;
+				}
+			} else {
+				// if previously logged in
+				if (adapters.PersistentSettings.prefs.lastLoginAttemptWasSuccessful == true &&
+					adapters.PersistentSettings.prefs.email.equals(mEmail) &&
+					adapters.PersistentSettings.prefs.password.equals(mPassword) ) {
+					
+					adapters.PersistentSettings.prefs.offlineMode = true;
+					
+					String faction = adapters.PersistentSettings.prefs.faction;
+					if (faction.equalsIgnoreCase("humans")) {
+						MainActivity.faction = MainActivity.Faction.HUMAN;
+					} else if (faction.equalsIgnoreCase("robots")) {
+						MainActivity.faction = MainActivity.Faction.ROBOT;
+					}
+					
+					adapters.PersistentSettings.prefs.savePreferences();
+					return true;
+				} else {
+					adapters.PersistentSettings.prefs.lastLoginAttemptWasSuccessful = false;
+					adapters.PersistentSettings.prefs.savePreferences();
+					return false;
 				}
 			}
-
-			// TODO: register the new account here.
-			//return true;
-			
-			return false; // Currently, this will not allow registration
 		}
 
 		@Override
@@ -259,32 +281,11 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				String faction = adapters.MemberAdapter.getMember().getaFaction().getName();
-				if (faction.equalsIgnoreCase("humans")) {
-					MainActivity.faction = MainActivity.Faction.HUMAN;
-				} else if (faction.equalsIgnoreCase("robots")) {
-					MainActivity.faction = MainActivity.Faction.ROBOT;
-				}
-				adapters.PersistentSettings.prefs.faction = faction;
-				adapters.PersistentSettings.prefs.offlineMode = false;
-				adapters.PersistentSettings.prefs.savePreferences();
 				finish();
 			} else {
-				String faction = adapters.PersistentSettings.prefs.faction;
-				if (!faction.equals("")) {
-					if (faction.equalsIgnoreCase("humans")) {
-						MainActivity.faction = MainActivity.Faction.HUMAN;
-					} else if (faction.equalsIgnoreCase("robots")) {
-						MainActivity.faction = MainActivity.Faction.ROBOT;
-					}
-					adapters.PersistentSettings.prefs.offlineMode = true;
-					adapters.PersistentSettings.prefs.savePreferences();
-					finish();
-				} else {
-					mPasswordView
-							.setError(getString(R.string.error_incorrect_password));
-					mPasswordView.requestFocus();
-				}
+				mPasswordView
+						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.requestFocus();
 			}
 		}
 

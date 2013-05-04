@@ -144,12 +144,12 @@ public class AngryBotsProfile extends Activity {
 	}
 	
 	protected void setStats() {
-		( (TextView)findViewById(R.id.title2) ).setText(adapters.MemberAdapter.getMember().getUsername());
-		//( (TextView)findViewById(R.id.prank) ).setText(adapters.MemberAdapter.getMember().getRank());
-		( (TextView)findViewById(R.id.robotkills) ).setText( Integer.toString(adapters.MemberAdapter.getMember().getHit()) );
-		//( (TextView)findViewById(R.id.DeathCount) ).setText(adapters.MemberAdapter.getMember().getDeaths());
-		( (TextView)findViewById(R.id.minigamepoints) ).setText( Long.toString(adapters.MemberAdapter.getMember().getPoints()) );
-		//( (TextView)findViewById(R.id.PlayTime) ).setText(adapters.MemberAdapter.getMember().getPlayTime());
+		( (TextView)findViewById(R.id.title2)  ).setText(adapters.PersistentSettings.prefs.username);
+		//( (TextView)findViewById(R.id.prank)  ).setText(adapters.PersistentSettings.prefs.rank);
+		( (TextView)findViewById(R.id.robotkills)   ).setText(adapters.PersistentSettings.prefs.hits);
+		//( (TextView)findViewById(R.id.DeathCount) ).setText(adapters.PersistentSettings.prefs.deaths);
+		( (TextView)findViewById(R.id.minigamepoints) ).setText(Float.toString(adapters.PersistentSettings.prefs.points));
+		//( (TextView)findViewById(R.id.PlayTime)   ).setText(adapters.PersistentSettings.prefs.play_time);
 	}
 	
 	protected void setProfile() {

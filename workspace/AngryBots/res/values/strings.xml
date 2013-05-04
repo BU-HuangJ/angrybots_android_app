@@ -37,6 +37,7 @@
     <string name="lose_title">You Lose!</string>
     <string name="title_activity_human_wiki">HumanWiki</string>
     <string name="title_activity_mini_game3">MiniGame3</string>
+    <string name="find_opponent">Search for an Opponent</string>
     <string name="rock">rock</string>
     <string name="paper">paper</string>
     <string name="scissors">scissors</string>
