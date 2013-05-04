@@ -54,52 +54,50 @@ public class Leaderboard extends Activity {
 			Populater.populate(new Runnable() {
 				@Override
 				public void run() {
-					//setPoints();
+					setPoints();
 				}
 			});
 	    }
 		
 		public void setPoints() {
+			
+			float robot_points = adapters.PersistentSettings.prefs.robot_global_points;
+			float human_points = adapters.PersistentSettings.prefs.human_global_points;
+			
+			// if online, check for updates
 			if (!adapters.PersistentSettings.prefs.offlineMode) {
-				float robot_points = adapters.NetworkAdapter.getRobotTotalPoints();
-				float human_points = adapters.NetworkAdapter.getHumanTotalPoints();
-				float total_points = robot_points + human_points;
-				if (total_points != 0) {
-					ImageView iv;
-					float val;
-					
-					iv = (ImageView)findViewById(R.id.robotbar);
-					val = 1 - robot_points/total_points;
-					iv.setLayoutParams(new TableLayout.LayoutParams(0, TableLayout.LayoutParams.MATCH_PARENT, (val)));
-					
-					iv = (ImageView)findViewById(R.id.humanbar);
-					val = 1 - human_points/total_points;
-					iv.setLayoutParams(new TableLayout.LayoutParams(0, TableLayout.LayoutParams.MATCH_PARENT, (val)));
+				float updated_robot_points = adapters.NetworkAdapter.getRobotTotalPoints();
+				float updated_human_points = adapters.NetworkAdapter.getHumanTotalPoints();
+				if ( (updated_robot_points != robot_points) || (updated_human_points != human_points) ) {
+					robot_points = adapters.PersistentSettings.prefs.robot_global_points = updated_robot_points;
+					human_points = adapters.PersistentSettings.prefs.human_global_points = updated_human_points;
+					adapters.PersistentSettings.prefs.savePreferences();
 				}
-				TextView tv;
-				
-				Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/neuropolitical rg.ttf");
-				
-				tv = (TextView)findViewById(R.id.robotpoints);
-				tv.setText(Float.toString(robot_points) + " ");
-				tv.setTypeface(typeFace);
-				
-				tv = (TextView)findViewById(R.id.humanpoints);
-				tv.setText(Float.toString(human_points) + " ");
-				tv.setTypeface(typeFace);
-		
-				GregorianCalendar calendar = new GregorianCalendar();
-				// SUNDAY   = 1; (8 - SUNDAY  ) = (8 - 1) = 7 == 7 days to next Sunday
-				// SATURDAY = 7; (8 - SATURDAY) = (8 - 7) = 1 == 1 days to next Sunday
-				int delta = 8 - calendar.get(Calendar.DAY_OF_WEEK);
-				calendar.add(Calendar.DAY_OF_YEAR, delta);
-				calendar.set(Calendar.HOUR_OF_DAY, 23);
-				calendar.set(Calendar.MINUTE, 59);
-				
-				tv = (TextView)findViewById(R.id.robot_competition_ends);
-				tv.setText( DateFormat.format("MM/dd/yyyy hh:mm aa", calendar) );
-				tv.setTypeface(this.getTypeface());
 			}
+			
+			float total_points = robot_points + human_points;
+			if (total_points != 0) {
+				ImageView iv;
+				float val;
+				
+				iv = (ImageView)findViewById(R.id.robotbar);
+				val = 1 - robot_points/total_points;
+				iv.setLayoutParams(new TableLayout.LayoutParams(0, TableLayout.LayoutParams.MATCH_PARENT, (val)));
+				
+				iv = (ImageView)findViewById(R.id.humanbar);
+				val = 1 - human_points/total_points;
+				iv.setLayoutParams(new TableLayout.LayoutParams(0, TableLayout.LayoutParams.MATCH_PARENT, (val)));
+			}
+			TextView tv;
+			
+			tv = (TextView)findViewById(R.id.robotpoints);
+			tv.setText(Float.toString(robot_points) + " ");
+			tv.setTypeface(this.getTypeface());
+			
+			tv = (TextView)findViewById(R.id.humanpoints);
+			tv.setText(Float.toString(human_points) + " ");
+			tv.setTypeface(this.getTypeface());
+
 		}
 	
 	 private Typeface getTypeface() {

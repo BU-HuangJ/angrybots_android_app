@@ -1,14 +1,14 @@
 package com.group3.angrybots;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
-public class MiniGame3 extends Activity {
+public class MiniGame3 extends SuperMiniGames {
 	
 	private static class RPC {
 		public enum Gesture {
@@ -46,6 +46,7 @@ public class MiniGame3 extends Activity {
 		}
 	}
 	
+	private String key = null;
 	private int winCount  = 0;
 	private int tieCount  = 0;
 	private int loseCount = 0;
@@ -58,18 +59,64 @@ public class MiniGame3 extends Activity {
 		case TIE:  ( (TextView)findViewById(R.id.RPC_ties)   ).setText(Integer.toString(++tieCount) ); break;
 		case LOSS: ( (TextView)findViewById(R.id.RPC_losses) ).setText(Integer.toString(++loseCount)); break;
 		}
+		this.set_up_game();
 	}
 	
 	public void chooseRock(View view) {
-		this.updateGame( RPC.Gesture.ROCK, RPC.getRandomGesture() );
+		RPC.Gesture opponent_gesture;
+		if (this.key != null) {
+			String results = adapters.NetworkAdapter.sendRPC_Action(Messaging.RPC_Action.ROCK, this.key);
+			if (results.equalsIgnoreCase("winner")) {
+				opponent_gesture = RPC.Gesture.SCISSORS;
+			} else if (results.equalsIgnoreCase("loser")) {
+				opponent_gesture = RPC.Gesture.PAPER;
+			} else if (results.equalsIgnoreCase("tie")) {
+				opponent_gesture = RPC.Gesture.ROCK;
+			} else {
+				opponent_gesture = RPC.getRandomGesture();
+			}
+		} else {
+			opponent_gesture = RPC.getRandomGesture();
+		}
+		this.updateGame( RPC.Gesture.ROCK, opponent_gesture );
 	}
 	
 	public void choosePaper(View view) {
-		this.updateGame( RPC.Gesture.PAPER, RPC.getRandomGesture() );
+		RPC.Gesture opponent_gesture;
+		if (this.key != null) {
+			String results = adapters.NetworkAdapter.sendRPC_Action(Messaging.RPC_Action.PAPER, this.key);
+			if (results.equalsIgnoreCase("winner")) {
+				opponent_gesture = RPC.Gesture.ROCK;
+			} else if (results.equalsIgnoreCase("loser")) {
+				opponent_gesture = RPC.Gesture.SCISSORS;
+			} else if (results.equalsIgnoreCase("tie")) {
+				opponent_gesture = RPC.Gesture.PAPER;
+			} else {
+				opponent_gesture = RPC.getRandomGesture();
+			}
+		} else {
+			opponent_gesture = RPC.getRandomGesture();
+		}
+		this.updateGame( RPC.Gesture.PAPER, opponent_gesture );
 	}
 	
 	public void chooseScissors(View view) {
-		this.updateGame( RPC.Gesture.SCISSORS, RPC.getRandomGesture() );
+		RPC.Gesture opponent_gesture;
+		if (this.key != null) {
+			String results = adapters.NetworkAdapter.sendRPC_Action(Messaging.RPC_Action.SCISSORS, this.key);
+			if (results.equalsIgnoreCase("winner")) {
+				opponent_gesture = RPC.Gesture.PAPER;
+			} else if (results.equalsIgnoreCase("loser")) {
+				opponent_gesture = RPC.Gesture.ROCK;
+			} else if (results.equalsIgnoreCase("tie")) {
+				opponent_gesture = RPC.Gesture.SCISSORS;
+			} else {
+				opponent_gesture = RPC.getRandomGesture();
+			}
+		} else {
+			opponent_gesture = RPC.getRandomGesture();
+		}
+		this.updateGame( RPC.Gesture.SCISSORS, opponent_gesture );
 	}
 
 	@Override
@@ -103,14 +150,38 @@ public class MiniGame3 extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		this.set_up_game();
+	}
+	
+	public void set_up_game() {
+		if (adapters.PersistentSettings.prefs.offlineMode == false) {
+			LinearLayout ll = (LinearLayout)findViewById(R.id.RPC_bot);
+			for(int i = 0; i < ll.getChildCount(); i++) {
+				ll.getChildAt(i).setVisibility(View.GONE);
+			}
+			findViewById(R.id.find_opponent_button).setVisibility(View.VISIBLE);
+		}
+	}
+
+	public void find_opponent(View view) {
+		if (adapters.PersistentSettings.prefs.offlineMode == false) {
+			this.key = adapters.NetworkAdapter.startRPC();
+		}
+		LinearLayout ll = (LinearLayout)findViewById(R.id.RPC_bot);
+		for(int i = 0; i < ll.getChildCount(); i++) {
+			ll.getChildAt(i).setVisibility(View.VISIBLE);
+		}
+		findViewById(R.id.find_opponent_button).setVisibility(View.GONE);
+	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		long mPoints = adapters.MemberAdapter.getMember().getPoints();
-		mPoints += this.winCount;
-		adapters.MemberAdapter.getMember().setPoints(mPoints);
-		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+		saveResults(this.winCount * 100 - this.loseCount * 50);
 	}
 
 }

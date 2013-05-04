@@ -5,35 +5,6 @@
     android:orientation="vertical"
     tools:context=".MiniGame3" >
     
-    <LinearLayout
-        android:id="@+id/RPC_top"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
-        
-        <Button
-	        android:id="@+id/top_rock"
-	        android:layout_width="0dp"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1"
-	        android:text="@string/rock" />
-        
-        <Button
-	        android:id="@+id/top_paper"
-	        android:layout_width="0dp"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1"
-	        android:text="@string/paper" />
-        
-        <Button
-	        android:id="@+id/top_scissors"
-	        android:layout_width="0dp"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1"
-	        android:text="@string/scissors" />
-        
-    </LinearLayout>
-        
     <TextView
 	    android:id="@+id/p2_choice"
 	    android:layout_width="fill_parent"
@@ -150,5 +121,13 @@
 	        android:text="@string/scissors" />
         
     </LinearLayout>
+
+    <Button
+        android:id="@+id/find_opponent_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="find_opponent"
+        android:visibility="gone"
+        android:text="@string/find_opponent" />
 
 </LinearLayout>

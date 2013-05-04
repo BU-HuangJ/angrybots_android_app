@@ -49,6 +49,4 @@ public class Faction {
 	public String toString() {
 		return "Faction [name=" + name + ", id=" + id + "]";
 	}
-	
-	
 }

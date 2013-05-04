@@ -29,9 +29,6 @@ public class MainActivity extends Activity {
     public void onResume() {
     	super.onResume();
         Intent intent = new Intent(this, LoginActivity.class);
-		//Intent intent = new Intent(this, MainMenuActivity.class);
-		//Intent intent = new Intent(this, HumanHomePage.class);
-        //Intent intent = new Intent(this, RobotHomePage.class);
     	if (MainActivity.faction != null) {
     		switch (MainActivity.faction) {
 			case HUMAN:

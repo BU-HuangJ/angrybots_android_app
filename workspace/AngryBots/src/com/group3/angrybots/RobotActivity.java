@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.TextView;
 
 public class RobotActivity extends Activity {
 	public void toRobotCompetitionPage(View view) {
@@ -32,6 +33,11 @@ public class RobotActivity extends Activity {
 	
 	public Typeface getTypeface() {
 		return Typeface.createFromAsset(getAssets(),"fonts/neuropolitical rg.ttf");
+	}
+	
+	public TextView setFont(TextView view) {
+		view.setTypeface(getTypeface());
+		return view;
 	}
 	
 	protected static class Populater {

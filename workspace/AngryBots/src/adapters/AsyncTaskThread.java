@@ -44,4 +44,17 @@ public class AsyncTaskThread<P, R> {
 		return t.execute(params).get();
 	}
 	
+	public R runUnsafe(P... params) {
+		try {
+			return t.execute(params).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

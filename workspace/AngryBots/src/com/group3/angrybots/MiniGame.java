@@ -4,7 +4,6 @@ import java.util.Random;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class MiniGame extends Activity {
+public class MiniGame extends SuperMiniGames {
 	
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	private GestureDetectorCompat mDetector; 
@@ -37,6 +36,8 @@ public class MiniGame extends Activity {
 		r3=new Random(8);
 		r4=new Random(240);
 		r5=new Random(349);
+		
+		boolean robot = adapters.PersistentSettings.prefs.faction.equalsIgnoreCase("robots");
 		
 		final Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,8 @@ public class MiniGame extends Activity {
                 
             }
         });
+        if (robot) { button.setBackgroundResource(R.drawable.mgbuttons); }
+        else { button.setBackgroundResource(R.drawable.robot_mgbuttons); }
         
         final Button button2 = (Button)findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +118,8 @@ public class MiniGame extends Activity {
                 
             }
         });
+        if (robot) { button2.setBackgroundResource(R.drawable.mgbuttons); }
+        else { button2.setBackgroundResource(R.drawable.robot_mgbuttons); }
         
         final Button button3 = (Button)findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +159,8 @@ public class MiniGame extends Activity {
                
             }
         });
+        if (robot) { button3.setBackgroundResource(R.drawable.mgbuttons); }
+        else { button3.setBackgroundResource(R.drawable.robot_mgbuttons); }
         
         final Button button4 = (Button)findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +200,8 @@ public class MiniGame extends Activity {
                
             }
         });
+        if (robot) { button4.setBackgroundResource(R.drawable.mgbuttons); }
+        else { button4.setBackgroundResource(R.drawable.robot_mgbuttons); }
         
         final Button button5 = (Button)findViewById(R.id.button5);
         button5.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +241,8 @@ public class MiniGame extends Activity {
                
             }
         });
+        if (robot) { button5.setBackgroundResource(R.drawable.mgbuttons); }
+        else { button5.setBackgroundResource(R.drawable.robot_mgbuttons); }
         
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
    
@@ -289,9 +300,6 @@ public class MiniGame extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		long mPoints = adapters.MemberAdapter.getMember().getPoints();
-		mPoints += this.points;
-		adapters.MemberAdapter.getMember().setPoints(mPoints);
-		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+		saveResults(this.points);
 	}
 }

@@ -20,7 +20,7 @@
          android:layout_height="70dp"
          android:layout_x="54dp"
          android:layout_y="400dp"
-         android:background="@drawable/minigamebuttonpress2"
+         android:background="@drawable/minigamebuttonpress"
          android:onClick="minigame2" />
      
      <TextView
@@ -30,5 +30,14 @@
         android:layout_x="198dp"
         android:layout_y="34dp"
         android:textSize="37sp" />
+
+     <Button
+         android:id="@+id/minigame3"
+         android:layout_width="80dp"
+         android:layout_height="70dp"
+         android:layout_x="54dp"
+         android:layout_y="496dp"
+         android:background="@drawable/minigamebuttonpress"
+         android:onClick="minigame3" />
 
 </AbsoluteLayout>

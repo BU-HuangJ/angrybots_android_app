@@ -32,7 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class MiniGame2 extends Activity {
+public class MiniGame2 extends SuperMiniGames {
 
 	//Global Variables
     private final int cardIDs[] = new int[]{R.id.card1,R.id.card2,R.id.card3,R.id.card4,R.id.card5};
@@ -146,7 +146,11 @@ public class MiniGame2 extends Activity {
     	updateStatistics(); //update the guesses left counter
     	mouseCard = new Random().nextInt(5); //generate a new mouse card
     	for (Button b : card) { //make all the buttons visible and change all backgrounds to the card image
-    		b.setBackground(getBaseContext().getResources().getDrawable(R.drawable.human_gametwo));	
+    		if (adapters.PersistentSettings.prefs.faction.equalsIgnoreCase("robots")){
+    			b.setBackgroundResource(R.drawable.robot_gametwo);
+    		} else {
+        		b.setBackground(getBaseContext().getResources().getDrawable(R.drawable.human_gametwo));	
+    		}
     		b.setVisibility(View.VISIBLE);
     	}
     }
@@ -200,9 +204,6 @@ public class MiniGame2 extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		long mPoints = adapters.MemberAdapter.getMember().getPoints();
-		mPoints += this.currentScore;
-		adapters.MemberAdapter.getMember().setPoints(mPoints);
-		adapters.NetworkAdapter.setMember( adapters.MemberAdapter.getMember() );
+		saveResults(this.currentScore * 100);
 	}
 }

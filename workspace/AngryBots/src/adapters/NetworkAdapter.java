@@ -9,7 +9,7 @@ public class NetworkAdapter {
 	protected static Messaging.Client client = null;
 	private NetworkAdapter() {}
 	
-	public static void connect(String host) {
+	public static void connect(String host) throws IOException {
 		NetworkAdapter.close();
 		try {
 			NetworkAdapter.client = new Messaging.Client(host);
@@ -17,9 +17,6 @@ public class NetworkAdapter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -39,35 +36,28 @@ public class NetworkAdapter {
 	}
 	
 	public static base.Member login(String email, String password) {
-		base.Member member = null;
-		Messaging.Client client = NetworkAdapter.client;
-		if (client != null) {
-			try {
-				member = client.login(email, password);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return member;
-	}
-	
-	public static void setMember(base.Member member) {
-		if (NetworkAdapter.client == null) { return; }
+		if (NetworkAdapter.client == null) { return null; }
 		
 		try {
-			( new AsyncTaskThread<base.Member, Void>(new AsyncTaskThread.Runner<base.Member, Void>() {
+			return client.login(email, password);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static base.Member getMember() {
+		if (NetworkAdapter.client == null) { return null; }
+		
+		try {
+			( new AsyncTaskThread<Void, base.Member>(new AsyncTaskThread.Runner<Void, base.Member>() {
 				@Override
-				public Void run(base.Member... params) {
-					try {
-						NetworkAdapter.client.setMember(params[0]);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					return null;
+				public base.Member run(Void... params) {
+					return NetworkAdapter.client.getMember();
 				}
-			}) ).run(member);
+			}) ).run();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,6 +65,8 @@ public class NetworkAdapter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	public static void save() {
@@ -208,5 +200,82 @@ public class NetworkAdapter {
 		}
 		
 		return 0;
+	}
+	
+	public static String startRPC() {
+		if (NetworkAdapter.client == null) { return null; }
+		
+		try {
+			return ( new AsyncTaskThread<Void, String>(new AsyncTaskThread.Runner<Void, String>() {
+				@Override
+				public String run(Void... params) {
+					try {
+						return adapters.NetworkAdapter.client.start_rpc();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return "";
+				}
+			}) ).run((Void) null);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static String sendRPC_Action(final int action, final String key) {
+		if (NetworkAdapter.client == null) { return null; }
+		
+		try {
+			return ( new AsyncTaskThread<Void, String>(new AsyncTaskThread.Runner<Void, String>() {
+				@Override
+				public String run(Void... params) {
+					try {
+						return adapters.NetworkAdapter.client.sendRPC_Action(action, key);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return "";
+				}
+			}) ).run((Void) null);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static String grantAchievement(int i) {
+		if (NetworkAdapter.client == null) { return null; }
+		
+		return ( new AsyncTaskThread<Integer, String>(new AsyncTaskThread.Runner<Integer, String>() {
+			@Override
+			public String run(Integer... params) {
+				try {
+					return adapters.NetworkAdapter.client.grantAchievement(params[0]);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "";
+			}
+		}) ).runUnsafe(i);
 	}
 }

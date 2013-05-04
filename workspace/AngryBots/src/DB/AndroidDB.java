@@ -1,6 +1,7 @@
 package DB;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.*;
@@ -11,6 +12,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import Messaging.LeaderBoardMessage;
+import base.Achievement;
+import base.Entry;
 import base.Faction;
 import base.Member;
 
@@ -18,7 +22,10 @@ import base.Member;
 public class AndroidDB {
 	private Connection conn;
 	private final String url = "jdbc:mysql://0.0.0.0:3306/AndroidSite_development";	
-	
+	private final String production_url = "http://127.0.0.1";
+	private final String dev_url = production_url+":3000";
+	public static final boolean production = false;
+	private String site_url;
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
@@ -29,22 +36,55 @@ public class AndroidDB {
 	
 	public AndroidDB(String user, String password) throws SQLException{
 		try {
+			
 			System.out.println("initiating db...");
+			if(production){
+				site_url = production_url;
+			}else{
+				site_url = dev_url;
+			}
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			connect(user,password);
 		} catch (ClassNotFoundException e) {
 			throw new SQLException();
 		}
 	}
-	public List<Member> getLeaderBoard(int limit) throws IOException, SQLException{
-		URL memberUrl = new URL("http://127.0.0.1:3000/leaderboard.json");
+	
+	public List<Entry> getCodex() throws IOException{
+		URL memberUrl = new URL(site_url+"/entries.json");
 		URLConnection conn = memberUrl.openConnection();
 		String s = Messaging.Message.read(conn.getInputStream());
 		JsonParser parse = new JsonParser();
 		JsonElement o =  parse.parse(s);
 		JsonArray json_arr = o.getAsJsonArray();
 		JsonElement json_obj = null;
-		List<Member> leaderboard = new ArrayList<Member>();
+		List<Entry> codex= new ArrayList<Entry>();
+		for(int i = 0; i < json_arr.size() ; i++){
+			json_obj = json_arr.get(i);
+			JsonObject entry_obj = (json_obj.getAsJsonObject());
+			codex.add(new Entry(entry_obj));
+		}
+		return codex;
+	}
+	public List<Member> getLeaderBoard(int limit) throws IOException, SQLException{
+		return getMembersFromURL((site_url+"/leaderboard.json"));
+	}
+	public List<Member> getRobotLeaderBoard(int limit) throws IOException, SQLException{
+		return getMembersFromURL((site_url+"/robot_board.json"));
+	}
+	public List<Member> getHumanLeaderBoard(int limit) throws IOException, SQLException{
+		return getMembersFromURL((site_url+"/human_board.json"));
+	}
+	public List<Member> getMembersFromURL(String url) throws IOException, SQLException{
+		URL memberUrl = new URL(url);
+		URLConnection conn = memberUrl.openConnection();
+		String s = Messaging.Message.read(conn.getInputStream());
+		JsonParser parse = new JsonParser();
+		JsonElement o =  parse.parse(s);
+		JsonArray json_arr = o.getAsJsonArray();
+		JsonElement json_obj = null;
+		List<Member> ret = new ArrayList<Member>();
 		for(int i = 0; i < json_arr.size() ; i++){
 			json_obj = json_arr.get(i);
 			JsonObject mem_obj = (json_obj.getAsJsonObject());
@@ -53,12 +93,12 @@ public class AndroidDB {
 			mem_obj.remove("faction_id");
 			Member m = new Member(mem_obj);
 			m.setaFaction(f);
-			leaderboard.add(m);
-		}
-		return leaderboard;
+			ret.add(m);
 	}
+	return ret;
+}
 	public Member getMember(int i) throws IOException, SQLException{
-		URL memberUrl = new URL("http://127.0.0.1:3000/members/"+i+".json");
+		URL memberUrl = new URL(site_url+"/members/"+i+".json");
 		URLConnection conn = memberUrl.openConnection();
 		InputStream in = conn.getInputStream();
 		String s = Messaging.Message.read(in);
@@ -67,13 +107,19 @@ public class AndroidDB {
 		JsonObject mem_obj = json_element.getAsJsonObject();
 		Faction f = getFaction(mem_obj.get("faction_id").getAsInt());
 		mem_obj.remove("faction_id");
+		System.out.println(mem_obj.get("achievements").toString());
 		Member m = new Member(mem_obj);
 		m.setaFaction(f);
 		return m;
 	}
+	
+	public void grantAchievement(int user, int achievement) throws SQLException{
+		String strSQL = "INSERT INTO member_achievements (member_id,achievement_id) VALUES("+user+","+achievement+");";
+		Statement stmnt = conn.createStatement();
+		stmnt.execute(strSQL);
+	}
 	public Faction getFaction(int i) throws SQLException{
 		String strSQL = "Select * from factions where id = " + i;
-		System.out.println(strSQL);
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(strSQL);
 		rs.next();

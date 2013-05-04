@@ -23,6 +23,13 @@ public class Settings extends Activity {
         
     }
     
+    @Override
+	protected void onResume() { 
+		super.onResume();
+		this.flipServer();
+	}
+	
+    
     
     /** Called when the user clicks the Lerpz Profile button */
     public void angrybotsProfile(View view) {
@@ -67,4 +74,12 @@ public class Settings extends Activity {
     	Intent intent = new Intent(this, MinigamePortal.class);
     	startActivity(intent);
     }
+    
+    public void flipServer() {
+		if (adapters.PersistentSettings.prefs.offlineMode) {
+			findViewById(R.id.human_server_status).setBackgroundResource(R.drawable.robot_server_status_off);
+		} else {
+			findViewById(R.id.human_server_status).setBackgroundResource(R.drawable.robot_server_status_on);
+		}
+	}
 }

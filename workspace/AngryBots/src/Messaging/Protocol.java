@@ -17,7 +17,11 @@ import com.google.gson.stream.JsonWriter;
 
 
 public abstract class Protocol {
-
+	public final static boolean DEBUG = true;
+	public void DEBUG(String str){
+		if(DEBUG)
+			System.out.println(str);
+	}
 	public JsonObject getFrom(String str){
 		JsonParser parse = new JsonParser();
 		JsonElement e = parse.parse(str);

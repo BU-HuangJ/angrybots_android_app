@@ -36,4 +36,12 @@ public class Update extends Message{
 		w.endObject();
 		w.close();
 	}
+
+
+	@Override
+	public String toString() {
+		return "Update [member=" + member.toString() + "]";
+	}
+	
+	
 }

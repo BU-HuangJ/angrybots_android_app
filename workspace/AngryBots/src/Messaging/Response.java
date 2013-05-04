@@ -35,4 +35,10 @@ public class Response extends Message {
 		return type;
 	}
 
+	@Override
+	public String toString() {
+		return "Response [message=" + message + "]";
+	}
+
+	
 }

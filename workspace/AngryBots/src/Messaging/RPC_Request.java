@@ -31,6 +31,7 @@ public class RPC_Request extends Message{
 		super.encode(w);
 		w.name("member_id").value(member_id);
 		w.endObject();
+		w.close();
 	}
 	
 	@Override
