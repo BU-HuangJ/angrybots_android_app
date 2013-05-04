@@ -22,6 +22,7 @@ public class PersistentSettings extends Activity {
 	public int play_time;
 	
 	public boolean achievementCowboyHat, achievementMonocle, achievementMustache, achievementTopHat;
+	public String[] human_leaderboard;
 	
 	public void readPreferences(Context context) {
 		this.settings = context.getSharedPreferences(PREFS_NAME, 0);

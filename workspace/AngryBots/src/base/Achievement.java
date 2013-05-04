@@ -12,10 +12,10 @@ import com.google.gson.stream.JsonWriter;
 
 
 public class Achievement {
-	public static Achievement TOP_HAT    = new Achievement(1, "TOP_HAT",     20);
-	public static Achievement COWBOY_HAT = new Achievement(2, "COWBOY_HAT",  10);
-	public static Achievement MONOCLE    = new Achievement(3, "MONOCLE",    100);
-	public static Achievement MUSTACHE   = new Achievement(4, "MUSTACHE",    50);
+	public static Achievement TOP_HAT    = new Achievement(0, "TOP_HAT",     20);
+	public static Achievement COWBOY_HAT = new Achievement(1, "COWBOY_HAT",  10);
+	public static Achievement MONOCLE    = new Achievement(2, "MONOCLE",    100);
+	public static Achievement MUSTACHE   = new Achievement(3, "MUSTACHE",    50);
 	
 	private String name;
 	private int points;

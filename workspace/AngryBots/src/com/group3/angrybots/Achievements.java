@@ -1,5 +1,10 @@
 package com.group3.angrybots;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.group3.angrybots.RobotActivity.Populater;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -37,6 +42,13 @@ public class Achievements extends Activity {
 				"9. Richard Loren\n" +
 				"10. Ralph Lauren\n");
 		myTextView.setTextColor(Color.DKGRAY);
+		
+		Populater.populate(new Runnable() {
+			@Override
+			public void run() {
+				setLeaderboard();
+			}
+		});
 	}
 
 	
@@ -90,6 +102,52 @@ public class Achievements extends Activity {
     	Intent intent = new Intent(this, MinigamePortal.class);
     	startActivity(intent);
     } 
-
+    
+    public void setLeaderboard() {
+		// if online, check for updates 
+		if (!adapters.PersistentSettings.prefs.offlineMode) {
+			ArrayList<base.Member> members = adapters.NetworkAdapter.getLeaderBoard();
+			boolean changed = false;
+			Iterator<base.Member> it = members.iterator();
+			for(int i = 0; i < 10; i++) {
+				if (it.hasNext()) {
+					String updated_name = it.next().getUsername();
+					if (!updated_name.equals(adapters.PersistentSettings.prefs.human_leaderboard[i])) {
+						adapters.PersistentSettings.prefs.human_leaderboard[i] = updated_name;
+						changed = true;
+					}
+				} else {
+					break;
+				}
+			}
+			if (changed) {
+				adapters.PersistentSettings.prefs.savePreferences();
+			}
+		}
+		
+		ArrayList<TextView> views = new ArrayList<TextView>();
+		views.add( (TextView)findViewById(R.id.rank1) );
+		views.add( (TextView)findViewById(R.id.rank2) );
+		views.add( (TextView)findViewById(R.id.rank3) );
+		views.add( (TextView)findViewById(R.id.rank4) );
+		views.add( (TextView)findViewById(R.id.rank5) );
+		views.add( (TextView)findViewById(R.id.rank6) );
+		views.add( (TextView)findViewById(R.id.rank7) );
+		views.add( (TextView)findViewById(R.id.rank8) );
+		views.add( (TextView)findViewById(R.id.rank9) );
+		views.add( (TextView)findViewById(R.id.rank10));
+		Iterator<TextView> i = views.iterator();
+		for(String username : adapters.PersistentSettings.prefs.human_leaderboard) {
+			if (i.hasNext() && username != null) {
+				TextView tv = i.next();
+				tv.setText( username );
+				Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/neuropolitical rg.ttf");
+				tv.setTypeface(typeFace);
+			} else {
+				break;
+			}
+		}
+	}
 }
+
 

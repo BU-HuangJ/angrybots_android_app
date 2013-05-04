@@ -1,5 +1,0 @@
-INDEX VERSION 1.126+C:\Users\huangj\Desktop\angrybots_android_app\workspace\.metadata\.plugins\org.eclipse.jdt.core
-961024949.index
-1088059325.index
-984441173.index
-2650499004.index

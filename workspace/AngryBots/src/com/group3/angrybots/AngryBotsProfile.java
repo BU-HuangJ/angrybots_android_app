@@ -144,11 +144,13 @@ public class AngryBotsProfile extends Activity {
 	}
 	
 	protected void setStats() {
+		
+		
 		( (TextView)findViewById(R.id.title2)  ).setText(adapters.PersistentSettings.prefs.username);
-		//( (TextView)findViewById(R.id.prank)  ).setText(adapters.PersistentSettings.prefs.rank);
-		( (TextView)findViewById(R.id.robotkills)   ).setText(adapters.PersistentSettings.prefs.hits);
+		( (TextView)findViewById(R.id.prank)  ).setText(adapters.PersistentSettings.prefs.rank);
+		( (TextView)findViewById(R.id.robokills)   ).setText(adapters.PersistentSettings.prefs.hits);
 		//( (TextView)findViewById(R.id.DeathCount) ).setText(adapters.PersistentSettings.prefs.deaths);
-		( (TextView)findViewById(R.id.minigamepoints) ).setText(Float.toString(adapters.PersistentSettings.prefs.points));
+		( (TextView)findViewById(R.id.mg1) ).setText(Float.toString(adapters.PersistentSettings.prefs.points));
 		//( (TextView)findViewById(R.id.PlayTime)   ).setText(adapters.PersistentSettings.prefs.play_time);
 	}
 	
